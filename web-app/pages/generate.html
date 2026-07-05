@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>合同生成 - 契合</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <div class="page chat-page">
+    <nav class="top-nav">
+      <a href="../index.html" class="nav-back" aria-label="返回">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#1C2A5C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 5l-7 7 7 7"/>
+        </svg>
+      </a>
+      <h1 class="nav-title">合同生成</h1>
+      <div class="nav-progress" id="progress-indicator"></div>
+    </nav>
+
+    <div class="chat-scroll" id="chat-scroll">
+      <div class="chat-messages" id="chat-messages"></div>
+    </div>
+
+    <div class="error-banner" id="error-banner" hidden></div>
+
+    <div class="chat-input-bar">
+      <input type="text" id="text-input" class="text-input" placeholder="输入消息…" autocomplete="off">
+      <button class="icon-btn send-btn" id="send-btn" aria-label="发送">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 12h16"/>
+          <path d="M13 5l7 7-7 7"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <script src="../js/state.js"></script>
+  <script src="../js/api.js"></script>
+  <script src="../js/ui.js"></script>
+  <script src="../js/interaction.js"></script>
+</body>
+</html>

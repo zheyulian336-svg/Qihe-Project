@@ -1,0 +1,631 @@
+:root {
+  --color-bg: #EBF0FB;
+  --color-card: #FFFFFF;
+  --color-primary: #5B7FDB;
+  --color-primary-dark: #3B5CB7;
+  --color-title: #1C2A5C;
+  --color-text: #2C2C2A;
+  --color-secondary-text: #5F5E5A;
+  --color-placeholder: #888780;
+  --radius-card: 16px;
+
+  --color-risk-red-bg: #FDEAEA;
+  --color-risk-red-text: #B3261E;
+  --color-risk-red-border: #E8B4B4;
+  --color-risk-yellow-bg: #FFF8E1;
+  --color-risk-yellow-text: #B06D00;
+  --color-risk-yellow-border: #E8D5A0;
+  --color-risk-green-bg: #E6F4EA;
+  --color-risk-green-text: #256029;
+  --color-risk-green-border: #B4D4BA;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei",
+    "Noto Sans CJK SC", "Helvetica Neue", Arial, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.disclaimer {
+  text-align: center;
+  color: var(--color-placeholder);
+  font-size: 12px;
+  padding: 16px 0;
+}
+
+/* ---------------- Home page ---------------- */
+
+.home-page {
+  align-items: center;
+  padding: 48px 20px;
+}
+
+.home-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.app-title {
+  color: var(--color-title);
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: 4px;
+}
+
+.app-subtitle {
+  color: var(--color-secondary-text);
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+
+.home-cards {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  max-width: 720px;
+  flex: 1;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.feature-card {
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  padding: 32px 24px;
+  flex: 1;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  box-shadow: 0 2px 10px rgba(28, 42, 92, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(28, 42, 92, 0.12);
+}
+
+.feature-icon-wrap {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-title {
+  color: var(--color-title);
+  font-size: 18px;
+  margin: 0;
+}
+
+.feature-desc {
+  color: var(--color-secondary-text);
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ---------------- Top nav (shared) ---------------- */
+
+.top-nav {
+  display: flex;
+  align-items: center;
+  padding: 16px 16px;
+  gap: 12px;
+  background: var(--color-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.nav-back {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--color-card);
+  flex-shrink: 0;
+}
+
+.nav-title {
+  flex: 1;
+  text-align: center;
+  color: var(--color-title);
+  font-size: 17px;
+  margin: 0;
+  margin-right: 36px;
+}
+
+.nav-progress {
+  color: var(--color-primary-dark);
+  font-size: 13px;
+  font-weight: 600;
+  min-width: 36px;
+  text-align: right;
+}
+
+/* ---------------- Chat page ---------------- */
+
+.chat-page {
+  height: 100vh;
+}
+
+.chat-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 16px;
+}
+
+.chat-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding-bottom: 16px;
+}
+
+.msg-row {
+  display: flex;
+  width: 100%;
+}
+
+.msg-row-user {
+  justify-content: flex-end;
+}
+
+.msg-row-ai {
+  justify-content: flex-start;
+}
+
+.bubble {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.bubble-user {
+  background: #DBE7FB;
+  color: var(--color-text);
+  border-bottom-right-radius: 4px;
+  box-shadow: 0 1px 6px rgba(28, 42, 92, 0.06);
+}
+
+.bubble-ai {
+  background: var(--color-card);
+  color: var(--color-text);
+  border-bottom-left-radius: 4px;
+}
+
+/* ---------------- 合同卡片 ---------------- */
+
+.contract-card {
+  max-width: 85%;
+  background: var(--color-card);
+  border: 1px solid #D8DFF0;
+  border-radius: var(--radius-card);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contract-card-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.contract-card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contract-card-name {
+  color: var(--color-title);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.contract-card-summary {
+  color: var(--color-secondary-text);
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.contract-info-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.info-tag {
+  display: inline-block;
+  background: var(--color-bg);
+  color: var(--color-primary-dark);
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1.4;
+}
+
+.contract-card-preview {
+  background: var(--color-bg);
+  border-radius: 10px;
+  padding: 12px;
+  max-height: 220px;
+  overflow-y: auto;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--color-text);
+  white-space: pre-wrap;
+  font-family: inherit;
+  margin: 0;
+}
+
+.contract-disclaimer {
+  margin: 0;
+  font-size: 11px;
+  color: var(--color-placeholder);
+  line-height: 1.5;
+}
+
+/* ---------------- 输入栏 ---------------- */
+
+.chat-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+  background: var(--color-bg);
+}
+
+.text-input {
+  flex: 1;
+  border: none;
+  border-radius: 24px;
+  padding: 12px 18px;
+  font-size: 14px;
+  background: var(--color-card);
+  color: var(--color-text);
+  outline: none;
+}
+
+.text-input::placeholder {
+  color: var(--color-placeholder);
+}
+
+.icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.send-btn {
+  background: var(--color-primary);
+}
+
+.send-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.error-banner {
+  max-width: 640px;
+  margin: 0 auto 8px;
+  background: var(--color-risk-red-bg);
+  color: var(--color-risk-red-text);
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+/* ---------------- Review page ---------------- */
+
+.review-page {
+  height: 100vh;
+}
+
+.review-scroll {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 16px 32px;
+  max-width: 640px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.card {
+  background: var(--color-card);
+  border-radius: var(--radius-card);
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 10px rgba(28, 42, 92, 0.06);
+}
+
+.card-title {
+  color: var(--color-title);
+  font-size: 15px;
+  margin: 0 0 14px;
+}
+
+.upload-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 10px;
+}
+
+.upload-tile,
+.upload-add-tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-add-tile {
+  border: 1.5px dashed #BCC7E8;
+  background: transparent;
+}
+
+.upload-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.upload-tile-doc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  text-align: center;
+}
+
+.upload-tile-doc span {
+  font-size: 10px;
+  color: var(--color-secondary-text);
+  word-break: break-all;
+  line-height: 1.3;
+}
+
+.upload-tile-remove {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(28, 42, 92, 0.65);
+  color: #FFFFFF;
+  font-size: 13px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-hint {
+  color: var(--color-secondary-text);
+  font-size: 12px;
+  margin: 14px 0 0;
+}
+
+.primary-btn {
+  background: var(--color-primary);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.primary-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* ---------------- Review result ---------------- */
+
+.risk-banner {
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.risk-banner.risk-red {
+  background: var(--color-risk-red-bg);
+  color: var(--color-risk-red-text);
+}
+
+.risk-banner.risk-yellow {
+  background: var(--color-risk-yellow-bg);
+  color: var(--color-risk-yellow-text);
+}
+
+.risk-banner.risk-green {
+  background: var(--color-risk-green-bg);
+  color: var(--color-risk-green-text);
+}
+
+.empty-issues {
+  text-align: center;
+  color: var(--color-secondary-text);
+  font-size: 14px;
+}
+
+/* 风险条目卡片 */
+.issue-card {
+  border-left: 4px solid var(--color-primary);
+}
+
+.issue-card.risk-red {
+  border-left-color: var(--color-risk-red-text);
+}
+
+.issue-card.risk-yellow {
+  border-left-color: var(--color-risk-yellow-text);
+}
+
+.issue-card.risk-green {
+  border-left-color: var(--color-risk-green-text);
+}
+
+/* 风险条目头部 */
+.issue-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.issue-level-tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.issue-level-tag.risk-red {
+  background: var(--color-risk-red-bg);
+  color: var(--color-risk-red-text);
+}
+
+.issue-level-tag.risk-yellow {
+  background: var(--color-risk-yellow-bg);
+  color: var(--color-risk-yellow-text);
+}
+
+.issue-level-tag.risk-green {
+  background: var(--color-risk-green-bg);
+  color: var(--color-risk-green-text);
+}
+
+.issue-code-tag {
+  display: inline-block;
+  background: var(--color-bg);
+  color: var(--color-secondary-text);
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-family: monospace;
+}
+
+.issue-target-tag {
+  display: inline-block;
+  color: var(--color-primary-dark);
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.issue-original {
+  background: var(--color-bg);
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--color-secondary-text);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+.issue-problem,
+.issue-law {
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0 0 8px;
+  color: var(--color-text);
+}
+
+.issue-suggestion {
+  background: var(--color-bg);
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+.issue-suggestion-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.issue-suggestion p {
+  margin: 0 0 10px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--color-title);
+}
+
+.copy-btn {
+  border: 1px solid var(--color-primary);
+  background: transparent;
+  color: var(--color-primary-dark);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 12px;
+}
