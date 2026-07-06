@@ -7,6 +7,10 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>契合需要使用相机拍摄合同文件，用于审查风险条款</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>契合需要访问相册，用于上传合同文件进行审查</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
