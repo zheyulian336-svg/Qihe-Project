@@ -59,6 +59,18 @@ function initGeneratePage() {
         contract_title: result.contract_title || '',
         disclaimer: result.disclaimer || '',
       });
+    } else if (status === 'success' && type === 'blank_template') {
+      // 空白合同模板：显示模板正文和提示信息
+      AppState.setComplete(false);
+      if (result.message) {
+        Ui.appendAiBubble(result.message);
+      }
+      if (result.template_body) {
+        Ui.appendAiBubble(result.template_body);
+      }
+      if (result.note) {
+        Ui.appendAiBubble('⚠️ ' + result.note);
+      }
     } else {
       // 其他情况（incomplete / guide 等）：显示 AI 消息，继续收集信息
       Ui.appendAiBubble(result.message || '');
