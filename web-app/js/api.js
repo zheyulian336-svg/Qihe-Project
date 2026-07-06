@@ -1,6 +1,8 @@
 // 封装 fetch 调用 backend 接口，不做任何判断逻辑。
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = (typeof window.__QIHE_API_BASE__ !== 'undefined')
+  ? window.__QIHE_API_BASE__
+  : `http://${window.location.hostname}:8000`;
 
 const Api = (() => {
   async function sendTextMessage(sessionId, content) {

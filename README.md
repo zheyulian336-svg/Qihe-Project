@@ -18,10 +18,13 @@ cd backend
 python3 -m venv .venv          # 可选：使用虚拟环境
 source .venv/bin/activate      # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
 后端启动后访问 http://127.0.0.1:8000 应能看到 `{"status": "ok", ...}`。
+
+> **注意**：`--host 0.0.0.0` 允许同一局域网内的其他设备（如 iPhone）访问后端。
+> 如需仅限本机访问，改回 `--host 127.0.0.1`。
 
 ## 启动前端
 

@@ -326,7 +326,7 @@ button {
   border: none;
   border-radius: 24px;
   padding: 12px 18px;
-  font-size: 14px;
+  font-size: 16px;
   background: var(--color-card);
   color: var(--color-text);
   outline: none;
