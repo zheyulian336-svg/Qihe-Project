@@ -114,17 +114,41 @@ const Ui = (() => {
       downloadBtn.textContent = '正在生成…';
       try {
         const blob = await Api.exportContractDocx(contractBody, disclaimer);
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = (contractTitle || '房屋租赁合同') + '.docx';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
+        const filename = (contractTitle || '房屋租赁合同') + '.docx';
+
+        // iOS APP 内：通过原生桥接保存文件（WKWebView 不支持 <a download>）
+        if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.saveFile) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const base64 = reader.result.split(',')[1];
+            window.webkit.messageHandlers.saveFile.postMessage({
+              filename: filename,
+              base64: base64,
+            });
+            downloadBtn.disabled = false;
+            downloadBtn.textContent = '下载合同';
+          };
+          reader.onerror = () => {
+            showError('下载失败，请稍后再试');
+            downloadBtn.disabled = false;
+            downloadBtn.textContent = '下载合同';
+          };
+          reader.readAsDataURL(blob);
+        } else {
+          // 桌面浏览器：使用 <a download> 下载
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          downloadBtn.disabled = false;
+          downloadBtn.textContent = '下载合同';
+        }
       } catch (e) {
         showError('下载失败，请稍后再试');
-      } finally {
         downloadBtn.disabled = false;
         downloadBtn.textContent = '下载合同';
       }

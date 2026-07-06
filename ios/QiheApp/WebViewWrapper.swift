@@ -31,6 +31,9 @@ struct WebViewWrapper: UIViewRepresentable {
         )
         config.userContentController.addUserScript(userScript)
 
+        // 注册 saveFile 消息处理器（前端下载文件用）
+        config.userContentController.add(context.coordinator, name: "saveFile")
+
         // ---- 创建 WebView ----
         let webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = context.coordinator
@@ -54,9 +57,68 @@ struct WebViewWrapper: UIViewRepresentable {
 
     func updateUIView(_ uiView: WKWebView, context: Context) {}
 
-    // MARK: - Coordinator（导航代理）
-    class Coordinator: NSObject, WKNavigationDelegate {
+    // MARK: - Coordinator（导航代理 + 消息处理）
+    class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
 
+        // ---- WKScriptMessageHandler：处理前端发来的 saveFile 消息 ----
+        func userContentController(
+            _ userContentController: WKUserContentController,
+            didReceive message: WKScriptMessage
+        ) {
+            guard message.name == "saveFile",
+                  let body = message.body as? [String: Any],
+                  let filename = body["filename"] as? String,
+                  let base64 = body["base64"] as? String,
+                  let fileData = Data(base64Encoded: base64) else {
+                print("[Qihe] saveFile 消息格式错误")
+                return
+            }
+
+            // 保存到临时目录
+            let tempDir = FileManager.default.temporaryDirectory
+            let fileURL = tempDir.appendingPathComponent(filename)
+            do {
+                try fileData.write(to: fileURL)
+                print("[Qihe] 文件已保存: \(fileURL.path)")
+            } catch {
+                print("[Qihe] 文件保存失败: \(error.localizedDescription)")
+                return
+            }
+
+            // 在主线程弹出系统分享面板
+            DispatchQueue.main.async {
+                self.presentShareSheet(fileURL: fileURL)
+            }
+        }
+
+        private func presentShareSheet(fileURL: URL) {
+            guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                  let rootVC = windowScene.windows.first?.rootViewController else {
+                print("[Qihe] 无法获取 root view controller")
+                return
+            }
+
+            let activityVC = UIActivityViewController(
+                activityItems: [fileURL],
+                applicationActivities: nil
+            )
+
+            // iPad 需要设置 popover 锚点
+            if let popover = activityVC.popoverPresentationController {
+                popover.sourceView = rootVC.view
+                popover.sourceRect = CGRect(
+                    x: rootVC.view.bounds.midX,
+                    y: rootVC.view.bounds.midY,
+                    width: 0,
+                    height: 0
+                )
+                popover.permittedArrowDirections = []
+            }
+
+            rootVC.present(activityVC, animated: true)
+        }
+
+        // ---- WKNavigationDelegate ----
         func webView(
             _ webView: WKWebView,
             didFail navigation: WKNavigation!,
